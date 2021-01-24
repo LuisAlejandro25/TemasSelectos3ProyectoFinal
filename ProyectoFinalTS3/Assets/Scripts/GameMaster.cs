@@ -5,50 +5,70 @@ using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
+    //Objects References
 	public GameObject camera;
 	public GameObject pauseUI;
+    
+    //Camera Rotation Var
 	private float angleRot;
+
+    //Pause Var
 	private bool pauseFlag;
-	private bool awa;
-	private int state;
+	private bool inputFlag;
+    
+    //Puzzles Var
+    public int numFragments;
+	public int count;
+    public bool allFragmets;
+    
     // Start is called before the first frame update
     void Start()
     {
         pauseFlag = false;
-        awa = false;
-        Debug.Log(pauseFlag);
+        inputFlag = false;
+        allFragmets = false;
+        count = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
     	if(!pauseFlag){
-    		//Debug.Log("Juego");
-    		//Time.timeScale = 1f;
     		pauseUI.SetActive(false);
     	}
     	else{
-    		//Debug.Log("Pause");
-    		//Time.timeScale = 0f;
     		pauseUI.SetActive(true);
     	}
 
     	angleRot = camera.transform.localRotation.eulerAngles.z;
 
         if(angleRot > 30.0f && angleRot < 80.0f){
-        	if(!awa){
+        	if(!inputFlag){
         		pauseFlag = !pauseFlag;
-        		awa = true;
+        		inputFlag = true;
         		pauseUI.GetComponent<UIPos>().setUIPos(camera.transform);
         	}
         }
         else{
-        	awa = false;
+        	inputFlag = false;
         }
         
     }
 
     public bool GetPauseFlag(){
     	return pauseFlag;
+    }
+
+    public void FindFragment(){
+        if(count < numFragments){
+            count++;
+            if(count == numFragments){
+                allFragmets = true;
+            }
+        } 
+    }
+
+    public bool GetFragmentsBool(){
+        return allFragmets;
     }
 }
