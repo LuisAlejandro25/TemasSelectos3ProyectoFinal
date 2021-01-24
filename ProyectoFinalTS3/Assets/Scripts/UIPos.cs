@@ -14,7 +14,7 @@ public class UIPos : MonoBehaviour
     }
 
     public void setUIPos(Transform newPos){
-    	Vector3 direction = Vector3.Scale(newPos.transform.forward , new Vector3(1,0,1));
+    	Vector3 direction = Vector3.Scale(newPos.forward , new Vector3(1,0,1));
         direction = direction * 0.5f;
         this.transform.position = new Vector3(direction.x + refPlayer.transform.position.x, this.transform.position.y, direction.z + refPlayer.transform.position.z);
     }
