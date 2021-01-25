@@ -18,8 +18,14 @@ public class GameMaster : MonoBehaviour
     
     //Puzzles Var
     public int numFragments;
-	public int count;
-    public bool allFragmets;
+	private int count;
+    private bool allFragmets;
+
+    //Legendary Reference
+    public GameObject legendaryRef;
+    public float encounterTime;
+    private float countTime;
+    private bool startTimer;
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,7 @@ public class GameMaster : MonoBehaviour
         pauseFlag = false;
         inputFlag = false;
         allFragmets = false;
+        startTimer = false;
         count = 0;
     }
 
@@ -35,6 +42,9 @@ public class GameMaster : MonoBehaviour
     {
     	if(!pauseFlag){
     		pauseUI.SetActive(false);
+            if(startTimer){
+                FinishLevel();
+            }
     	}
     	else{
     		pauseUI.SetActive(true);
@@ -70,5 +80,22 @@ public class GameMaster : MonoBehaviour
 
     public bool GetFragmentsBool(){
         return allFragmets;
+    }
+
+    public void LegendaryEntry(){
+        StartCoroutine("LegendarySpawn");
+    }
+
+    IEnumerator LegendarySpawn(){
+        yield return new WaitForSeconds(3.0f);
+        legendaryRef.SetActive(true);
+        startTimer = true;
+    }
+
+    private void FinishLevel(){
+        countTime += Time.deltaTime;
+        if(countTime >= encounterTime){
+            SceneManager.LoadScene(0);
+        }
     }
 }

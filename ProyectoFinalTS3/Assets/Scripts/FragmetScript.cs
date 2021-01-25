@@ -26,7 +26,7 @@ public class FragmetScript : MonoBehaviour
 
     	Vector3 difference = aux - aux2;
     	float distance = difference.magnitude;
-    	if(distance <= 2.0f){
+    	if(distance <= 2.5f){
     		buttonRef.SetActive(true);
     	}
     	else{
