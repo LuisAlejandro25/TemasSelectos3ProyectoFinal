@@ -35,8 +35,8 @@ public class FragmetScript : MonoBehaviour
     }
 
     private void UpdateUIRotation(){
-    	this.transform.LookAt(new Vector3(refPlayer.transform.position.x,this.transform.position.y,refPlayer.transform.position.z));
-        this.transform.Rotate(0.0f,180.0f,0.0f,Space.Self);
+    	buttonRef.transform.LookAt(new Vector3(refPlayer.transform.position.x,this.transform.position.y,refPlayer.transform.position.z));
+        buttonRef.transform.Rotate(0.0f,180.0f,0.0f,Space.Self);
     }
 
     public void fragmentFound(){
