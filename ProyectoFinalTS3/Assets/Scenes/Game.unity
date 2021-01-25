@@ -2434,6 +2434,7 @@ MonoBehaviour:
   pauseUI: {fileID: 565701939}
   numFragments: 5
   count: 0
+  allFragmets: 0
 --- !u!4 &1791488144
 Transform:
   m_ObjectHideFlags: 0
