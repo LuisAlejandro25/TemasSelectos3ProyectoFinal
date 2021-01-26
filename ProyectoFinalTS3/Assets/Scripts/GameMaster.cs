@@ -8,6 +8,7 @@ public class GameMaster : MonoBehaviour
     //Objects References
 	public GameObject camera;
 	public GameObject pauseUI;
+    public GameObject instructionRef;
     
     //Camera Rotation Var
 	private float angleRot;
@@ -26,6 +27,11 @@ public class GameMaster : MonoBehaviour
     public float encounterTime;
     private float countTime;
     private bool startTimer;
+
+    //Audio Controller
+    private AudioSource legendarySource;
+    public AudioClip dialgaSound;
+    public AudioClip patoSound;
     
     // Start is called before the first frame update
     void Start()
@@ -35,6 +41,8 @@ public class GameMaster : MonoBehaviour
         allFragmets = false;
         startTimer = false;
         count = 0;
+        legendarySource = this.GetComponent<AudioSource>();
+        StartCoroutine("DisplayInstructions");
     }
 
     // Update is called once per frame
@@ -87,9 +95,21 @@ public class GameMaster : MonoBehaviour
     }
 
     IEnumerator LegendarySpawn(){
+        legendarySource.Play();
         yield return new WaitForSeconds(3.0f);
+        legendarySource.clip = patoSound;
+        legendarySource.Play();
         legendaryRef.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        legendarySource.clip = dialgaSound;
+        legendarySource.Play();
         startTimer = true;
+    }
+
+    IEnumerator DisplayInstructions(){
+        instructionRef.SetActive(true);
+        yield return new WaitForSeconds(10.0f);
+        Destroy(instructionRef.gameObject);
     }
 
     private void FinishLevel(){
